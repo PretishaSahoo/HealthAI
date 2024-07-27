@@ -12,7 +12,7 @@ export default function Contact() {
 
       </div>
 
-      <div className="max-w-[800px] mx-auto rounded mt-8" style={{ boxShadow: "0 0 20px 10px rgba(128, 128, 128, 0.1)" }}>
+      <div className="max-w-[80vw] mx-auto rounded mt-8" style={{ boxShadow: "0 0 20px 10px rgba(128, 128, 128, 0.1)" }}>
         <div className="mt-6 rounded-xl">
           <div className="p-10">
 
