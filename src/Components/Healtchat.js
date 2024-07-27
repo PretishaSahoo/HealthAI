@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 
 const Healtchat = () => {
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([{ role: 'Maya', content: 'Hello, I am Maya. Ask me anything about fashion, I am here to help!' }]);
+  const [messages, setMessages] = useState([{ role: 'Maya', content: 'Hello, I am your AI Health Assistant. Ask me anything about Health,home-remedies,advancements in Health domain I am here to help!' }]);
   const endRef = useRef(null);
 
   const handleInputChange = (e) => {
