@@ -27,7 +27,7 @@ const teamMembers = [
 
 const Team = () => {
   return (
-    <div className="py-10 bg-gray-100 min-h-screen">
+    <div className="py-10 bg-gray-100 min-h-screen pb-24">
       <div className="text-center mb-12 pt-24">
         <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-purple-700 mt-24 sm:mt-24 md:mt-24">Meet Our Team</h1>
         <p className="mt-2 text-lg text-gray-700">A group of dedicated professionals driving innovation.</p>
