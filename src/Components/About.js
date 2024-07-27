@@ -1,9 +1,10 @@
 import React from 'react';
+import './Animations.css'
 
 export default function About() {
   return (
     <div className="bg-gray-100 min-h-screen p-6 ">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto  animate-floatdown">
         {/* Title Section */}
         <header className="text-center mb-12">
           <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-purple-700 mt-24 sm:mt-24 md:mt-24">About Health AI</h1>

@@ -1,13 +1,14 @@
 import React from 'react';
+import './Animations.css'
 
 export default function Contact() {
   return (
-    <div className="max-w-[1200px] mx-auto bg-white sm:py-20 p-5">
+    <div className="max-w-[1200px] mx-auto bg-white sm:py-20 p-5 animate-floatleft">
 
       <div className="text-center">
       <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-purple-700 mt-24 sm:mt-24 md:mt-24">
-  Contact and Support
-</h2>
+        Contact and Support
+        </h2>
 
       </div>
 

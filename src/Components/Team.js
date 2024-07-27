@@ -2,6 +2,7 @@ import React from 'react';
 import Pretisha from "../Images/Pretisha.jpeg";
 import Ananya from "../Images/Ananya.jpeg";
 import Debopriya from "../Images/Debopriya.jpeg";
+import './Animations.css'
 
 const teamMembers = [
   {
@@ -31,7 +32,7 @@ const Team = () => {
         <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-purple-700 mt-24 sm:mt-24 md:mt-24">Meet Our Team</h1>
         <p className="mt-2 text-lg text-gray-700">A group of dedicated professionals driving innovation.</p>
       </div>
-      <div className="flex flex-wrap justify-center gap-10">
+      <div className="flex flex-wrap justify-center gap-10 animate-float">
         {teamMembers.map((member, index) => (
           <a
             key={index}

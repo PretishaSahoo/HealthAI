@@ -59,11 +59,12 @@ const Healtchat = () => {
 
   return (
     <>
+    <div className="animate-floatright">
       <div className="text-center pt-32">
         <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-purple-700 mt-24 sm:mt-24 md:mt-24">HealthAI - ChatBot</h2>
       </div>
 
-      <div className="flex flex-col w-full max-w-[1200px] mx-auto p-4 rounded-lg bg-white shadow-lg h-[550px]">
+      <div className="flex flex-col w-full max-w-[1200px] mx-auto p-4 rounded-lg bg-white shadow-lg h-[77vh]">
         <div className="flex flex-col h-full">
           <div className="flex-grow overflow-y-auto mb-4">
             <div className="flex flex-col space-y-4">
@@ -95,6 +96,7 @@ const Healtchat = () => {
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 };
