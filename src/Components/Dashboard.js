@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React ,{useState,useEffect} from 'react';
+import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 
 export default function Dashboard() {
@@ -6,15 +7,10 @@ export default function Dashboard() {
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
 
   useEffect(() => {
-    // Check if the screen size is large or small
     const handleResize = () => {
       setIsLargeScreen(window.innerWidth >= 1024);
     };
-
-    // Add event listener on component mount
     window.addEventListener('resize', handleResize);
-
-    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -31,7 +27,8 @@ export default function Dashboard() {
           isSidebarOpen || isLargeScreen ? 'lg:ml-[25%]' : 'ml-0'
         }`}
       >
-        {/* Your main content goes here */}
+        {/* Render nested routes */}
+        <Outlet />
       </div>
 
       {/* Toggle Button for Small Screens */}

@@ -8,6 +8,8 @@ import Contact from './Components/Contact';
 import Navbar from './Components/Navbar';
 import Dashboard from './Components/Dashboard'
 import { AuthProvider } from './Context/AuthContext';
+import ApplyDoctor from './Components/ApplyDoctor';
+import EditDoctor from './Components/EditDoctor';
 
 const App = () => {
   return (
@@ -19,7 +21,10 @@ const App = () => {
         <Route path="/healthchat" element={<Healthchat />} />
         <Route path="/team" element={<Team />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="/dashboard/applydoctor" element={<ApplyDoctor />} />
+          <Route path="/dashboard/editDoctorProfile" element={<EditDoctor/>} />
+        </Route>
       </Routes>
     </div>
   );
