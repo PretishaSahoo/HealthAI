@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from "../Context/AuthContext";
 
-
-//code sample demo later will change accordinglllly 
-
+// Sample data
 const sampleAppointments = [
   {
     id: 1,
@@ -47,54 +45,41 @@ export default function Appointments() {
 
   return (
     <div className="p-4 mt-24">
-      <h1 className="text-2xl font-bold  text-center text-violet-600 mb-4">My Appointments</h1>
-      <div className="bg-white shadow-md rounded-lg overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialization</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Video Call</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {appointments.map((appointment) => (
-              <tr key={appointment.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{appointment.doctor}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{appointment.specialization}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{appointment.date}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{appointment.time}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{appointment.status}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button
-                    onClick={() => handleReschedule(appointment.id)}
-                    className="text-indigo-600 hover:text-indigo-900 mr-4"
-                  >
-                    Reschedule
-                  </button>
-                  <button
-                    onClick={() => handleCancel(appointment.id)}
-                    className="text-red-600 hover:text-red-900"
-                  >
-                    Cancel
-                  </button>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button
-                    onClick={() => handleJoinCall(appointment.videoCallLink)}
-                    className="text-green-600 hover:text-green-900"
-                  >
-                    Join Call
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <h1 className="text-2xl font-bold text-center text-violet-600 mb-4">My Appointments</h1>
+      <div className="flex flex-col gap-4">
+        {appointments.map((appointment) => (
+          <div key={appointment.id} className="bg-white shadow-md rounded-lg p-4">
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between items-center">
+                <h2 className="text-lg font-semibold text-gray-900">{appointment.doctor}</h2>
+                <span className="text-sm text-gray-500">{appointment.specialization}</span>
+              </div>
+              <p className="text-sm text-gray-600">Date: {appointment.date}</p>
+              <p className="text-sm text-gray-600">Time: {appointment.time}</p>
+              <p className="text-sm text-gray-600">Status: {appointment.status}</p>
+              <div className="flex gap-4 mt-2">
+                <button
+                  onClick={() => handleReschedule(appointment.id)}
+                  className="text-indigo-600 hover:text-indigo-900"
+                >
+                  Reschedule
+                </button>
+                <button
+                  onClick={() => handleCancel(appointment.id)}
+                  className="text-red-600 hover:text-red-900"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => handleJoinCall(appointment.videoCallLink)}
+                  className="text-green-600 hover:text-green-900"
+                >
+                  Join Call
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
