@@ -78,6 +78,21 @@ const ApplyDoctor = () => {
       profilePic: profilePic
     };
     console.log(doctorData);
+    setFile({ file: file, filename: file.name });
+    setWorkingHours({
+      workingHoursStart: '',
+      workingHoursEnd: ''
+    })
+    setFormData({
+      name: '',
+      email: '',
+      uid: '',
+      phone: '',
+      clinicAddress: '',
+      specialization: [],
+      experience: '',
+      fees: ''
+    });
   };
 
   return (
@@ -172,7 +187,7 @@ const ApplyDoctor = () => {
                   onClick={() => document.getElementById('fileInput').click()}
                   className="w-full p-2 border border-gray-300 rounded bg-white text-violet-700 focus:border-violet-500 focus:ring-violet-500"
                 >
-                  {file.filename === "" ? "Choose File" : file.filename}
+                  {(file.filename === "" && file.file===null ) ? "Choose File" : file.filename}
                 </button>
                 <input
                   type="file"
