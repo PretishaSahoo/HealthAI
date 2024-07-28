@@ -34,7 +34,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
           <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
             <h1 className="text-purple-900">Notifications</h1>
           </div>
-          {currentUser?.isDoctor === false && currentUser?.isAdmin === false && <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
+          {currentUser?.isDoctor === false  && <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
             <h1 className="text-purple-900">Medicine Reminders</h1>
           </div>}
           {currentUser?.isDoctor === false  && <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
