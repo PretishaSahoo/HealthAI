@@ -23,19 +23,19 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
         </div>
         <div className="bg-white text-purple-900 h-[calc(100%-20%)] rounded p-4">
           <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 border-t border-gray-200 transition hover:bg-violet-500 focus:bg-violet-500">
-            <h1 className="text-purple-900"> Your Appointments</h1>
+            <Link to = "/dashboard/appointments" className="text-purple-900"> Your Appointments</Link>
           </div>
           {currentUser?.isDoctor === false  && <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
-            <h1 className="text-purple-900">Find Doctors</h1>
+            <Link to="/dashboard/doctors" className="text-purple-900">Find Doctors</Link>
           </div>}
           {currentUser?.isDoctor === true && <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
             <Link to="/dashboard/editDoctorProfile" className="text-purple-900">Edit Profile</Link>
           </div>}
           <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
-            <h1 className="text-purple-900">Notifications</h1>
+            <Link to ="/dashboard/notifications" className="text-purple-900">Notifications</Link>
           </div>
           {currentUser?.isDoctor === false  && <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
-            <h1 className="text-purple-900">Medicine Reminders</h1>
+            <Link to="/dashboard/medicines" className="text-purple-900">Medicine Reminders</Link>
           </div>}
           {currentUser?.isDoctor === false  && <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
             <Link to="/dashboard/applydoctor" className="text-purple-900">Apply as a Doctor</Link>
@@ -51,5 +51,5 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
         </button>
       </div>
     </>
-  );
+  );  
 }
