@@ -64,6 +64,27 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const applyDoctor = async (doctorData) => {
+    try {
+      const response = await axios.post(`${baseURL}/api/doctor/applyDoctor`, doctorData);
+      fetchUser(response.data.uid);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error applying as doctor:', error);
+      throw error;
+    }
+  };
+
+  const editDoctor = async (doctorData) => {
+    try {
+      const response = await axios.post(`${baseURL}/api/doctor/editDoctor`, doctorData);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error editing doctor profile:', error);
+      throw error;
+    }
+  };
+
   const authContextValue = {
     currentUser,
     isLoggedIn,
@@ -71,6 +92,8 @@ export const AuthProvider = ({ children }) => {
     setCurrentUser,
     loginWithGoogle,
     logout,
+    applyDoctor,
+    editDoctor
   };
 
   return (
