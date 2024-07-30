@@ -20,7 +20,7 @@ export default function Navbar() {
 
 
   return (
-    <header className="text-gray-50 fixed top-0 left-0 right-0 w-full z-10 bg-opacity-90 backdrop-filter backdrop-blur-lg shadow-lg mx-auto flex flex-col overflow-hidden px-4 py-4 lg:flex-row lg:items-center bg-transparent">
+    <header className="text-gray-50 fixed top-0 left-0 right-0 w-full z-10 bg-opacity-90 backdrop-filter backdrop-blur-lg shadow-lg mx-auto flex flex-col overflow-hidden px-4 py-4 lg:flex-row lg:items-center bg-transparent ">
       <Link to="/" className="flex items-center whitespace-nowrap text-2xl bg-transparent">
         <p className='text-violet-500 p-2 m-2 bg-transparent font-bold'>HealthAI</p>
       </Link>
@@ -47,12 +47,14 @@ export default function Navbar() {
         </ul>
         {isLoggedIn === true ? (
              <>
-             <Link to="/dashboard" className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center">
-               Dashboard
-             </Link>
-             <button onClick={LogMeOut} className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center">
-               Logout
-             </button>
+             <div className=" flex flex-row">
+              <Link to="/dashboard" className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center">
+                Dashboard
+              </Link>
+              <button onClick={LogMeOut} className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center">
+                Logout
+              </button>
+             </div>
            </>
           ) : (
             <>
