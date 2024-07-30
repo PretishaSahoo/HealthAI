@@ -10,6 +10,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [doctors, setDoctors] = useState([]);
 
   const baseURL = process.env.REACT_APP_MODE === "production" ? "https://health-ai-backend.vercel.app" : "http://localhost:5000";
 
@@ -18,6 +19,9 @@ export const AuthProvider = ({ children }) => {
       if (user) {
         setIsLoggedIn(true);
         fetchUser(user.uid);
+        if (!user.isDoctor) {
+          fetchAllDoctors();
+        }
       } else {
         setCurrentUser(null);
         setIsLoggedIn(false);
@@ -85,6 +89,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchAllDoctors = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/api/doctor/fetchAllDoctors`);
+      setDoctors(response.data.doctors);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   const authContextValue = {
     currentUser,
     isLoggedIn,
@@ -93,7 +107,8 @@ export const AuthProvider = ({ children }) => {
     loginWithGoogle,
     logout,
     applyDoctor,
-    editDoctor
+    editDoctor,
+    doctors
   };
 
   return (
