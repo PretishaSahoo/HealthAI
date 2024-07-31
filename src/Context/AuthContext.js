@@ -98,6 +98,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const bookAppointment = async(data) => {
+    try {
+      const response = await axios.post(`${baseURL}/api/user/bookAppointment`,data);
+      if (response.data.message==="Oops this time slot is not available !"){
+        alert("Oops this time slot is not available . Please select another timings!")
+      }
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   const authContextValue = {
     currentUser,
@@ -108,8 +120,10 @@ export const AuthProvider = ({ children }) => {
     logout,
     applyDoctor,
     editDoctor,
-    doctors
+    doctors,
+    bookAppointment
   };
+
 
   return (
     <AuthContext.Provider value={authContextValue}>

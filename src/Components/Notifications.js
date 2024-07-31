@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAuth } from '../Context/AuthContext';
 
 const sampleNotifications = [
   { id: 1, message: 'Your appointment with Dr. Smith is confirmed.' },
@@ -7,7 +8,9 @@ const sampleNotifications = [
 ];
 
 export default function Notifications() {
-  const notifications = sampleNotifications;
+
+  const {currentUser} = useAuth() ;
+  const notifications = currentUser?.notifications || [];
 
   return (
     <div className="p-4 mt-24">
@@ -27,7 +30,7 @@ export default function Notifications() {
             <tbody>
               {notifications.map((notification) => (
                 <tr key={notification.id}>
-                  <td className="border border-gray-200 px-4 py-2">{notification.message}</td>
+                  <td className="border border-gray-200 px-4 py-2">{notification}</td>
                   <td className="border border-gray-200 px-4 py-2">
                     <button className="bg-violet-500 text-white px-2 py-1 rounded">
                       Mark as read
