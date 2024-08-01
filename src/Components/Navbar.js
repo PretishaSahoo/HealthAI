@@ -4,7 +4,7 @@ import { Link ,useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
 
-  const {loginWithGoogle,logout , isLoggedIn} = useAuth();
+  const {loginWithGoogle,logout , isLoggedIn,currentUser} = useAuth();
 
   const navigate = useNavigate();
 
@@ -48,7 +48,10 @@ export default function Navbar() {
         {isLoggedIn === true ? (
              <>
              <div className=" flex flex-row">
-              <Link to="/dashboard" className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center">
+             <Link
+                to={currentUser.isDoctor ? "/dashboard/appointments" : "/dashboard/doctors"}
+                className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center"
+              >
                 Dashboard
               </Link>
               <button onClick={LogMeOut} className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center">
