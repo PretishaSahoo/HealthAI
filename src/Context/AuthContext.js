@@ -110,6 +110,26 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const acceptAppointment = async(data) => {
+    try {
+      const response = await axios.post(`${baseURL}/api/doctor/accept`,data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  const rejectAppointment = async(data) => {
+    try {
+      const response = await axios.post(`${baseURL}/api/doctor/reject`,data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
 
   const authContextValue = {
     currentUser,
@@ -121,7 +141,9 @@ export const AuthProvider = ({ children }) => {
     applyDoctor,
     editDoctor,
     doctors,
-    bookAppointment
+    bookAppointment,
+    acceptAppointment,
+    rejectAppointment
   };
 
 

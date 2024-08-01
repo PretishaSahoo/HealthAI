@@ -1,12 +1,6 @@
 import React from 'react';
 import { useAuth } from '../Context/AuthContext';
 
-const sampleNotifications = [
-  { id: 1, message: 'Your appointment with Dr. Smith is confirmed.' },
-  { id: 2, message: 'New message from Dr. Brown.' },
-  { id: 3, message: 'Your prescription is ready for pickup.' }
-];
-
 export default function Notifications() {
 
   const {currentUser} = useAuth() ;

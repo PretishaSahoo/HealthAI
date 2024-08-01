@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext';
 
 export default function DoctorsList() {
-  const { doctors, bookAppointment, currentUser } = useAuth();
+  const { doctors, bookAppointment, currentUser ,fetchUser} = useAuth();
   const { specialization } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -25,8 +25,11 @@ export default function DoctorsList() {
       userUid: currentUser.uid,
       date: appointmentDate,
       time: appointmentTime,
+      doctorName :selectedDoctor.name,
+      userName: currentUser.name
     };
     await bookAppointment(data);
+    await fetchUser(currentUser.uid);
     setShowModal(false);
     setAppointmentDate('');
     setAppointmentTime('');

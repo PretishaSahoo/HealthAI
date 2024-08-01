@@ -32,7 +32,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             <Link to="/dashboard/editDoctorProfile" className="text-purple-900">Edit Profile</Link>
           </div>}
           <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
-            <Link to ="/dashboard/notifications" className="text-purple-900">Notifications</Link>
+            <Link to ="/dashboard/notifications" className="text-purple-900">Notifications <span className="text-red-500">{currentUser.notifications.length}</span></Link>
           </div>
           {currentUser?.isDoctor === false  && <div className="p-4 bg-purple-50 m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 mt-4 transition hover:bg-violet-500 focus:bg-violet-500">
             <Link to="/dashboard/medicines" className="text-purple-900">Medicine Reminders</Link>

@@ -3,7 +3,7 @@ import { useAuth } from '../Context/AuthContext';
 import upload from './Upload.js';
 
 const ApplyDoctor = () => {
-  const { currentUser ,applyDoctor} = useAuth();
+  const { currentUser ,applyDoctor,fetchUser} = useAuth();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -78,6 +78,7 @@ const ApplyDoctor = () => {
       profilePic: profilePic
     };
     await applyDoctor(doctorData);
+    await fetchUser(currentUser.uid);
     setFile({ file: file, filename: file.name });
     setWorkingHours({
       workingHoursStart: '',
