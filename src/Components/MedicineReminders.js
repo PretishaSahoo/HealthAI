@@ -78,7 +78,7 @@ export default function MedicineReminders() {
               </span>
               <button
                 onClick={() => handleDeleteReminder(reminder)}
-                className="bg-red-500 text-white px-2 py-1 rounded"
+                className="bg-pink-500 text-white px-2 py-1 rounded"
               >
                 Delete
               </button>
