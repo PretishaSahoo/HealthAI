@@ -49,7 +49,7 @@ export default function Navbar() {
              <>
              <div className=" flex flex-row">
              <Link
-                to={currentUser.isDoctor ? "/dashboard/appointments" : "/dashboard/doctors"}
+                to={currentUser?.isDoctor ? "/dashboard/appointments" : "/dashboard/doctors"}
                 className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center"
               >
                 Dashboard
