@@ -1,7 +1,6 @@
 import React from 'react';
 import background from '../Images/Home1.png'; 
 import './Animations.css';
-import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -35,6 +34,14 @@ export default function Home() {
             className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center"
           >
             Analyze MRI
+          </a>
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center"
+          >
+            Analyse XRay Reports
           </a>
         </div>
       </div>

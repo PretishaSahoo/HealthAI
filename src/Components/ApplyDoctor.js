@@ -6,6 +6,8 @@ import './Animations.css'
 const ApplyDoctor = () => {
   const { currentUser ,applyDoctor,fetchUser} = useAuth();
 
+  const [loading, setLoading] = useState(false);  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -69,6 +71,7 @@ const ApplyDoctor = () => {
       alert("Please upload a profile picture.");
       return;
     }
+    setLoading(true); 
     const profilePic = await upload(file.file);
     const doctorData = {
       ...formData,
@@ -80,6 +83,7 @@ const ApplyDoctor = () => {
     };
     await applyDoctor(doctorData);
     await fetchUser(currentUser.uid);
+    setLoading(false); 
     setFile({ file: file, filename: file.name });
     setWorkingHours({
       workingHoursStart: '',
@@ -226,8 +230,8 @@ const ApplyDoctor = () => {
             </div>
           </div>
           <div className="sm:col-span-2">
-            <button type="submit" className="text-xl w-full p-2 mt-2 font-semibold text-white bg-purple-600 rounded-md hover:bg-purple-700">
-              Submit Application
+            <button  disabled={loading} type="submit" className="text-xl w-full p-2 mt-2 font-semibold text-white bg-purple-600 rounded-md hover:bg-purple-700">
+              {loading?"Applying..." : "Submit Application"}
             </button>
           </div>
         </form>

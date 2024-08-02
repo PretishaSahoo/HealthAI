@@ -6,6 +6,8 @@ import "./Animations.css"
 const EditDoctor = () => {
   const { currentUser, editDoctor } = useAuth();
 
+  const [loading, setLoading] = useState(false);  
+
   const [formData, setFormData] = useState({
     email: '',
     uid: '',
@@ -69,15 +71,20 @@ const EditDoctor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true); 
+
     const doctorData = { ...formData };
     if (file.file) {
       const profilePic = await upload(file.file);
       doctorData.profilePic = profilePic;
     }
 
+    console.log(doctorData)
+
     try {
       await editDoctor(doctorData);
       alert('Profile updated successfully');
+      setLoading(false); 
     } catch (error) {
       console.error('Error updating doctor:', error);
     }
@@ -194,9 +201,10 @@ const EditDoctor = () => {
           <div className="mt-6 flex justify-center">
             <button
               type="submit"
+              disabled={loading}
               className="px-4 py-2 bg-violet-700 text-white rounded shadow hover:bg-violet-600"
             >
-              Save Changes
+              {loading?"Saving..." : "Save Changes"}
             </button>
           </div>
         </form>
