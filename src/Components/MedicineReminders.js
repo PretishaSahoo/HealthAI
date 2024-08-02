@@ -1,29 +1,36 @@
 import React, { useState } from 'react';
+import { useAuth } from '../Context/AuthContext';
+import "./Animations.css"
 
 export default function MedicineReminders() {
-  const [reminders, setReminders] = useState([
-    { medicine: 'Paracetamol', time: '08:00' },
-    { medicine: 'Ibuprofen', time: '12:00' },
-    { medicine: 'Amoxicillin', time: '18:00' }
-  ]);
+  const { currentUser, addMedicineReminder, deleteMedicineReminder } = useAuth();
+  const reminders = currentUser?.medicineReminders || [];
+
   const [medicine, setMedicine] = useState('');
   const [time, setTime] = useState('');
 
-  const handleAddReminder = (e) => {
+  const handleAddReminder =async(e) => {
     e.preventDefault();
-    const newReminder = { medicine, time };
-    setReminders([...reminders, newReminder]);
+    const formattedTime = formatTime(time);
+    const data = { medicine, time: formattedTime, uid: currentUser.uid };
+    await addMedicineReminder(data);
     setMedicine('');
     setTime('');
   };
 
-  const handleDeleteReminder = (index) => {
-    const newReminders = reminders.filter((_, i) => i !== index);
-    setReminders(newReminders);
+  const handleDeleteReminder = async(reminder) => {
+    const formattedTime = formatTime(reminder.time);
+    const data = { medicine: reminder.medicine, time: formattedTime, uid: currentUser.uid };
+    await deleteMedicineReminder(data);
+  };
+
+  const formatTime = (time) => {
+    const [hour, minute] = time.split(':');
+    return `${hour.padStart(2, '0')}:${minute.padEnd(2, '0')}`;
   };
 
   return (
-    <div className="p-8 mt-24">
+    <div className="p-8 mt-24 animate-floatdown">
       <h2 className="text-3xl font-bold text-purple-900 mb-6">Medicine Reminders</h2>
       <form onSubmit={handleAddReminder} className="mb-8">
         <div className="mb-4">
@@ -70,7 +77,7 @@ export default function MedicineReminders() {
                 <span className="font-bold">{reminder.medicine}</span> at <span className="font-bold">{reminder.time}</span>
               </span>
               <button
-                onClick={() => handleDeleteReminder(index)}
+                onClick={() => handleDeleteReminder(reminder)}
                 className="bg-red-500 text-white px-2 py-1 rounded"
               >
                 Delete

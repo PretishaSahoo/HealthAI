@@ -204,7 +204,7 @@ export default function Appointments() {
   );
 
   return (
-    <div className="p-4 mt-24">
+    <div className="p-4 mt-24 animate-float">
       <h1 className="text-2xl font-bold text-center text-violet-600 mb-4">My Appointments</h1>
       {renderAppointments(acceptedAppointments, 'Accepted Appointments')}
       {renderAppointments(scheduledAppointments, 'Scheduled Appointments')}

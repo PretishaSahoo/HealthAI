@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../Context/AuthContext';
 import upload from './Upload.js';
+import "./Animations.css" 
 
 const EditDoctor = () => {
   const { currentUser, editDoctor } = useAuth();
@@ -83,7 +84,7 @@ const EditDoctor = () => {
   };
 
   return (
-    <>
+    <div className="animate-floatdown">
       <div className="text-center">
         <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-purple-700 mt-24 sm:mt-24 md:mt-24">
           Edit Profile
@@ -200,7 +201,7 @@ const EditDoctor = () => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -147,6 +147,23 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const addMedicineReminder = async(data)=>{
+    try {
+      await axios.post(`${baseURL}/api/user/addMedicineReminder`, data);
+      await fetchUser(data.uid);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const deleteMedicineReminder = async(data)=>{
+    try {
+      await axios.post(`${baseURL}/api/user/deleteMedicineReminder`, data);
+      await fetchUser(data.uid);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
   const authContextValue = {
@@ -163,7 +180,9 @@ export const AuthProvider = ({ children }) => {
     acceptAppointment,
     rejectAppointment,
     MarkAsRead,
-    MarkAllAsRead
+    MarkAllAsRead,
+    addMedicineReminder,
+    deleteMedicineReminder
   };
 
 

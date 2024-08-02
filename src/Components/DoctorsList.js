@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext';
+import "./Animations.css"
 
 export default function DoctorsList() {
   const { doctors, bookAppointment, currentUser ,fetchUser} = useAuth();
@@ -52,7 +53,7 @@ export default function DoctorsList() {
   };
 
   return (
-    <div className="p-4 mt-24">
+    <div className="p-4 mt-24 animate-float">
       <h1 className="text-3xl font-bold text-purple-900 mb-6">
         Doctors - {specialization.charAt(0).toUpperCase() + specialization.slice(1)}
       </h1>
