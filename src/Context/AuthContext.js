@@ -129,6 +129,24 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const MarkAsRead = async(data) =>{
+    try {
+      await axios.post(`${baseURL}/api/user/markNotificationAsRead`, data);
+      await fetchUser(data.uid);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const MarkAllAsRead = async(data) =>{
+    try {
+      await axios.post(`${baseURL}/api/user/markAllNotificationsAsRead`, data);
+      await fetchUser(data.uid);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
 
   const authContextValue = {
@@ -143,7 +161,9 @@ export const AuthProvider = ({ children }) => {
     doctors,
     bookAppointment,
     acceptAppointment,
-    rejectAppointment
+    rejectAppointment,
+    MarkAsRead,
+    MarkAllAsRead
   };
 
 
