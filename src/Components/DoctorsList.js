@@ -20,6 +20,13 @@ export default function DoctorsList() {
   };
 
   const handleBookAppointment = async () => {
+    const selectedDateTime = new Date(`${appointmentDate}T${appointmentTime}`);
+    const now = new Date();
+
+    if (selectedDateTime < now) {
+      alert('Please select a future date and time for the appointment.');
+      return;
+    }
     const data = {
       doctorUid: selectedDoctor.uid,
       userUid: currentUser.uid,
@@ -30,10 +37,10 @@ export default function DoctorsList() {
     };
     await bookAppointment(data);
     await fetchUser(currentUser.uid);
-    setShowModal(false);
     setAppointmentDate('');
     setAppointmentTime('');
     setSelectedDoctor(null);
+    setShowModal(false);
   };
 
   const getTodayDate = () => {
