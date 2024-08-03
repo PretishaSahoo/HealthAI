@@ -8,8 +8,8 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
   return (
     <>
       <div
-        className={`lg:w-[25%] lg:h-screen lg:fixed lg:top-[14%] lg:left-0 lg:z-10 lg:flex lg:flex-col lg:gap-4 lg:border-r lg:border-gray-200 bg-white text-purple-900
-                   ${isSidebarOpen ? 'fixed top-[14%] left-0 w-full h-[calc(100vh)] lg:hidden z-20' : 'hidden lg:flex'}`}
+        className={`lg:w-[25%] lg:h-screen lg:fixed lg:top-[14%] lg:left-0 lg:z-10 lg:flex lg:flex-col lg:gap-4 lg:border-r lg:border-gray-200 bg-white text-purple-900 border border-gray-300
+          ${isSidebarOpen ? 'fixed top-[14%] left-0 w-90 h-[calc(100vh)] lg:hidden z-20' : 'hidden lg:flex'}`}
       >
         <div className="bg-purple-900 text-white h-[22%] rounded flex flex-col justify-around gap-2 p-4">
           <div className="flex items-center gap-3 cursor-pointer hover:bg-purple-700 p-2 rounded">
