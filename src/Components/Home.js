@@ -18,7 +18,7 @@ export default function Home() {
         <p className="text-base md:text-lg lg:text-xl text-gray-400 font-bold max-w-3xl px-4 md:px-8 lg:px-12">
           Find doctors, get general health recommendations, and stay healthy with our AI-powered platform.
         </p>
-        <div className="mx-auto mt-8 space-x-4">
+        <div className="flex flex-col items-center gap-2 mt-8 lg:flex-row lg:gap-4 lg:justify-center">
           <a
             href="https://healthymistry-healthassistant.streamlit.app/"
             target="_blank"
@@ -41,7 +41,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center"
           >
-            Analyse XRay Reports
+            Analyse XRay 
           </a>
         </div>
       </div>
