@@ -10,6 +10,7 @@ export default function VideoCall() {
   const [error, setError] = useState(null);
   const [role, setRole] = useState(null);
   const [localStream, setLocalStream] = useState(null);
+  const [remoteStream, setRemoteStream] = useState(null);
 
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
@@ -39,7 +40,8 @@ export default function VideoCall() {
 
     socket.on("stream", (stream) => {
       if (remoteVideoRef.current) {
-        remoteVideoRef.current.srcObject = stream;
+        remoteVideoRef.current.srcObject = new MediaStream(stream);
+        setRemoteStream(new MediaStream(stream));
       }
     });
 
@@ -63,7 +65,7 @@ export default function VideoCall() {
           localVideoRef.current.srcObject = stream;
         }
         setLocalStream(stream);
-        socket.emit("stream", stream); // Send the stream to other users
+        socket.emit("stream", stream);
       })
       .catch(error => {
         setError(`Failed to access media devices: ${error.message}`);
@@ -76,6 +78,9 @@ export default function VideoCall() {
     }
     if (localVideoRef.current) {
       localVideoRef.current.srcObject = null;
+    }
+    if (remoteVideoRef.current) {
+      remoteVideoRef.current.srcObject = null;
     }
 
     socket.emit("leave", { room: videoCallLink });
