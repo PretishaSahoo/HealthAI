@@ -95,6 +95,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from "../Context/AuthContext";
 
+const baseURL = process.env.REACT_APP_MODE === "production" ? "https://health-ai-teal.vercel.app" : "http://localhost:3000";
+
 export default function Appointments() {
   const { currentUser, acceptAppointment, rejectAppointment, fetchUser } = useAuth();
   const [acceptedAppointments, setAcceptedAppointments] = useState([]);
@@ -144,8 +146,9 @@ export default function Appointments() {
     await fetchUser(currentUser.uid);
   };
 
-  const handleJoinCall = (link) => {
-    window.open(link, '_blank');
+  const handleJoinCall = (appointment) => {
+    const queryString = new URLSearchParams(appointment).toString();
+    window.open(`${baseURL}/vdo?${queryString}`, '_blank');
   };
 
   const renderAppointments = (appointments, title, showButtons = true) => (
@@ -188,7 +191,7 @@ export default function Appointments() {
                   )}
                   {appointment.status === 'Accepted' && (
                     <button
-                      onClick={() => handleJoinCall(appointment.videoCallLink)}
+                      onClick={() => handleJoinCall(appointment)}
                       className="text-violet-600 hover:text-violet-900"
                     >
                       Join Call

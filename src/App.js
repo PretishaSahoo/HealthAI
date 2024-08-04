@@ -17,13 +17,15 @@ import Medicines from './Components/MedicineReminders';
 import DoctorsList from './Components/DoctorsList';
 import Appointments from './Components/Appointments';
 import Error from './Components/Error';
+import VideoCall from './Components/VideoCall';
 
 const App = () => {
   return (
     <div className="App">
       <Navbar />
       <Routes>
-      <Route path="/error" element={<Error />} />
+        <Route path="/vdo" element={<VideoCall/>} />
+        <Route path="/error" element={<Error />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/healthchat" element={<Healthchat />} />
