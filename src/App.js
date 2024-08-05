@@ -40,6 +40,7 @@ const App = () => {
             </>
           ) : (
             <>
+              <Route path="appointments" element={<Appointments />} />
               <Route path="applydoctor" element={<ApplyDoctor />} />
               <Route path="medicines" element={<Medicines />} />
               <Route path="doctors" element={<Doctors />} />

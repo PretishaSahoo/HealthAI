@@ -1,4 +1,4 @@
-import React ,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAuth } from '../Context/AuthContext';
@@ -6,6 +6,10 @@ import { useAuth } from '../Context/AuthContext';
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
+  const [initialRedirect, setInitialRedirect] = useState(true); // Flag for initial redirect
+
+  const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const handleResize = () => {
@@ -17,24 +21,25 @@ export default function Dashboard() {
     };
   }, []);
 
-  const navigate = useNavigate();
-
-  const {currentUser} = useAuth();
-
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && initialRedirect) {
       if (currentUser.isDoctor) {
         navigate("/dashboard/appointments");
       } else {
         navigate("/dashboard/doctors");
       }
+      setInitialRedirect(false); // Ensure redirection happens only once
     }
-  }, [currentUser, navigate]);
+  }, [currentUser, initialRedirect, navigate]);
 
   return (
     <div className="flex">
       {/* Sidebar */}
-      <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} isLargeScreen={isLargeScreen} />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+        isLargeScreen={isLargeScreen}
+      />
 
       {/* Main content */}
       <div
