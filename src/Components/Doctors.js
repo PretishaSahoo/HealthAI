@@ -34,7 +34,7 @@ export default function Doctors() {
           <img
             src={specialty.image}
             alt={specialty.title}
-            className="w-full h-40 object-cover rounded-md mb-4"
+            className="w-full h-30 object-cover rounded-md mb-4"
           />
           <h2 className="text-xl font-bold text-purple-900 mb-4">{specialty.title}</h2>
         </Link>
