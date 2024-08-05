@@ -8,10 +8,10 @@ export default function Navbar() {
 
   const navigate = useNavigate();
 
-  const handleLogin = async() => {
-    await loginWithGoogle() ;
-    navigate("/dashboard");
-  }
+  const handleLogin = async () => {
+    await loginWithGoogle();
+    navigate("/dashboard")
+  };
 
   const LogMeOut = async() =>{
     await logout();

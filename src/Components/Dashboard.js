@@ -1,6 +1,7 @@
 import React ,{useState,useEffect} from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import { useAuth } from '../Context/AuthContext';
 
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -15,6 +16,20 @@ export default function Dashboard() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const navigate = useNavigate();
+
+  const {currentUser} = useAuth();
+
+  useEffect(() => {
+    if (currentUser) {
+      if (currentUser.isDoctor) {
+        navigate("/dashboard/appointments");
+      } else {
+        navigate("/dashboard/doctors");
+      }
+    }
+  }, [currentUser, navigate]);
 
   return (
     <div className="flex">
