@@ -10,6 +10,7 @@ const EditDoctor = () => {
 
   const [formData, setFormData] = useState({
     email: '',
+    name:'',
     uid: '',
     phone: '',
     clinicAddress: '',
@@ -24,6 +25,7 @@ const EditDoctor = () => {
   useEffect(() => {
     if (currentUser) {
       setFormData({
+        name:currentUser.name|| '',
         email: currentUser.email || '',
         uid: currentUser.uid || '',
         phone: currentUser.doctorDetails?.phone || '',
@@ -100,6 +102,17 @@ const EditDoctor = () => {
       <div className="max-w-[1200px] h-[90%] mx-auto items-center justify-center mt-6 bg-white p-12 rounded shadow-lg">
         <form className="w-full" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="flex flex-col">
+              <label className="text-violet-700">Name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter your Name (if any changes)"
+                value={formData.name}
+                onChange={handleChange}
+                className="p-2 border border-gray-300 rounded bg-white text-violet-700 focus:border-violet-500 focus:ring-violet-500"
+              />
+            </div>
             <div className="flex flex-col">
               <label className="text-violet-700">Phone Number</label>
               <input
