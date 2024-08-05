@@ -13,7 +13,7 @@ export default function VC() {
     const myCall = async () => {
       if (callContainerRef.current) {
         const appId =  453893021;
-        const serverSecret = process.env.REACT_APP_ZEGO_SECRET;
+        const serverSecret = "1b0e8ca7a2ca58cbb8219863b5b7e010"
         console.log(appId, serverSecret, videoCallLink, currentUser?.uid , currentUser?.name)
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appId, serverSecret, videoCallLink, currentUser?.uid , currentUser?.name);
         const zc = ZegoUIKitPrebuilt.create(kitToken);
