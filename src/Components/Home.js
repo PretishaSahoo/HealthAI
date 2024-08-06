@@ -28,7 +28,7 @@ export default function Home() {
             Predict Disease
           </a>
           <a
-            href="https://brainology-analyzer.streamlit.app/"
+            href="https://healthai-brainmri.streamlit.app"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-lg bg-violet-500 p-2 m-1 text-white transition hover:bg-violet-700 focus:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 w-32 text-center"
