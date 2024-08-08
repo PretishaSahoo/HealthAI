@@ -25,12 +25,12 @@ export default function About() {
           <div className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <h2 className="text-2xl font-semibold text-violet-600 mb-4">Book Appointment</h2>
             <p className="text-gray-700">
-              Easy appointment scheduling with options to reschedule or cancel bookings, tailored to your convenience.
+              Easy appointment scheduling with options to book or cancel appointments, tailored to your convenience.
             </p>
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-            <h2 className="text-2xl font-semibold text-violet-600 mb-4">Video Chat</h2>
+            <h2 className="text-2xl font-semibold text-violet-600 mb-4">Video Consultations</h2>
             <p className="text-gray-700">
               High-quality video consultations with healthcare professionals from the comfort of your home.
             </p>
