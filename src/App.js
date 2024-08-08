@@ -32,7 +32,7 @@ const App = () => {
         <Route path="/healthchat" element={<Healthchat />} />
         <Route path="/team" element={<Team />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/dashboard" element={currentUser ? <Dashboard /> : <Navigate to="/error" />}>
+        <Route path="/dashboard" element={  <Dashboard />}>
           {currentUser?.isDoctor ? (
             <>
               <Route path="appointments" element={<Appointments />} />
