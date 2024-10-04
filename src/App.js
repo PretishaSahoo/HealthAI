@@ -16,7 +16,7 @@ import Medicines from './Components/MedicineReminders';
 import DoctorsList from './Components/DoctorsList';
 import Appointments from './Components/Appointments';
 import Error from './Components/Error';
-import VC from './Components/VC';
+import VC from './Components/VideoCall.js';
 
 const App = () => {
   const { currentUser } = useAuth();
