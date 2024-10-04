@@ -66,20 +66,21 @@ export default function VideoCall() {
 
     socket.emit("join", { uid, doctorUid, userUid, role, room: videoCallLink });
 
+
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then(stream => {
         if (localVideoRef.current) {
           localVideoRef.current.srcObject = stream;
         }
         setLocalStream(stream);
-        socket.emit("stream", stream);
+        socket.emit("signal", stream);
       })
       .catch(error => {
         setError(`Failed to access media devices: ${error.message}`);
       });
     
       setIsJoined(true);
-      
+
   }, [videoCallLink, currentUser?.uid, currentUser?.isDoctor, doctorUid, userUid, socket]);
 
   const handleLeaveRoom = useCallback(() => {
