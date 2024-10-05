@@ -55,40 +55,44 @@ export default function VideoCall() {
     const role = currentUser?.isDoctor ? 'doctor' : 'user';
     const uid = currentUser?.uid;
 
-    socket.emit("join", { uid, doctorUid, userUid, role, room: videoCallLink });
+    try {
+      socket.emit("join", { uid, doctorUid, userUid, role, room: videoCallLink });
 
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-    setLocalStream(stream);
-    localVideoRef.current.srcObject = stream;
+ 
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      setLocalStream(stream);
+      localVideoRef.current.srcObject = stream;
 
-    // Setup WebRTC Peer Connection
-    peerConnection.current = new RTCPeerConnection({
-      iceServers: [
-        { urls: "stun:stun.l.google.com:19302" },
-        { urls: "stun:global.stun.twilio.com:3478" }
-      ]
-    });
+      peerConnection.current = new RTCPeerConnection({
+        iceServers: [
+          { urls: "stun:stun.l.google.com:19302" },
+          { urls: "stun:global.stun.twilio.com:3478" }
+        ]
+      });
 
-    stream.getTracks().forEach(track => {
-      peerConnection.current.addTrack(track, stream);
-    });
+      stream.getTracks().forEach(track => {
+        peerConnection.current.addTrack(track, stream);
+      });
 
-    peerConnection.current.ontrack = (event) => {
-      remoteVideoRef.current.srcObject = event.streams[0];
-      setRemoteStream(event.streams[0]);
-    };
+      peerConnection.current.ontrack = (event) => {
+        remoteVideoRef.current.srcObject = event.streams[0];
+        setRemoteStream(event.streams[0]);
+      };
 
-    peerConnection.current.onicecandidate = (event) => {
-      if (event.candidate) {
-        socket.emit("signal", event.candidate);
-      }
-    };
+      peerConnection.current.onicecandidate = (event) => {
+        if (event.candidate) {
+          socket.emit("signal", event.candidate);
+        }
+      };
 
-    const offer = await peerConnection.current.createOffer();
-    await peerConnection.current.setLocalDescription(offer);
-    socket.emit("signal", offer);
+      const offer = await peerConnection.current.createOffer();
+      await peerConnection.current.setLocalDescription(offer);
+      socket.emit("signal", offer);
 
-    setIsJoined(true);
+      setIsJoined(true);
+    } catch (err) {
+      setError("Unable to access camera and microphone: " + err.message);
+    }
   }, [videoCallLink, currentUser, doctorUid, userUid, socket]);
 
   const handleLeaveRoom = useCallback(() => {
