@@ -1,145 +1,222 @@
-import React, { useCallback, useMemo, useState, useEffect, useRef } from 'react';
-import { io } from 'socket.io-client';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { useAuth } from "../Context/AuthContext";
+import ReactPlayer from 'react-player'
+import Peer from "../Services/Peer"
+import { useSocket } from '../Context/SocketProvider'
+import { useParams } from 'react-router-dom';
 
 const baseURL = process.env.REACT_APP_MODE === "production" ? "https://health-ai-backend.vercel.app" : "http://localhost:5000";
 
 export default function VideoCall() {
+
   const { currentUser } = useAuth();
-  const [isJoined, setIsJoined] = useState(false);
-  const [error, setError] = useState(null);
-  const [localStream, setLocalStream] = useState(null);
+  
+  const [remoteSocketId, setRemoteSocketId] = useState(null);
+  const [stream, setStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
-  const localVideoRef = useRef(null);
-  const remoteVideoRef = useRef(null);
-  const peerConnection = useRef(null);
-  const socket = useMemo(() => io(baseURL), [baseURL]);
 
-  const queryParams = new URLSearchParams(window.location.search);
-  const doctorUid = queryParams.get('doctorUid');
-  const userUid = queryParams.get('userUid');
-  const videoCallLink = queryParams.get('videoCallLink');
+  const socket = useSocket();
 
-  useEffect(() => {
-    socket.on("user-joined", ({ id, role }) => {
-      console.log(`${role} has joined the call.`);
-      setIsJoined(true);
-    });
+  const {room} = useParams();
 
-    socket.on("user-left", () => {
-      setIsJoined(false);
-      closeConnection();
-    });
+  const handleUserJoined = useCallback(({ uid, id }) => {
+    if (id !== socket.id) {
+      console.log(`${uid} joined the room, setting remoteSocketId`);
+      setRemoteSocketId(id);
+    } else {
+      console.log("You have joined the room");
+    }
+  }, [socket.id]);
 
-    socket.on("signal", async (data) => {
-      if (data.type === "offer") {
-        await peerConnection.current.setRemoteDescription(new RTCSessionDescription(data));
-        const answer = await peerConnection.current.createAnswer();
-        await peerConnection.current.setLocalDescription(answer);
-        socket.emit("signal", peerConnection.current.localDescription);
-      } else if (data.type === "answer") {
-        await peerConnection.current.setRemoteDescription(new RTCSessionDescription(data));
-      } else if (data.candidate) {
-        await peerConnection.current.addIceCandidate(new RTCIceCandidate(data));
-      }
-    });
-
-    return () => {
-      socket.off("user-joined");
-      socket.off("user-left");
-      socket.off("signal");
-    };
-  }, [socket]);
-
-  const handleJoinRoom = useCallback(async () => {
-    const role = currentUser?.isDoctor ? 'doctor' : 'user';
-    const uid = currentUser?.uid;
-
-    try {
-      socket.emit("join", { uid, doctorUid, userUid, role, room: videoCallLink });
-
- 
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-      setLocalStream(stream);
-      localVideoRef.current.srcObject = stream;
-
-      peerConnection.current = new RTCPeerConnection({
-        iceServers: [
-          { urls: "stun:stun.l.google.com:19302" },
-          { urls: "stun:global.stun.twilio.com:3478" }
-        ]
+  const handleCall = useCallback(
+    async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true,
       });
+      const offer = await Peer.getOffer();
+      socket.emit("user:call", { to: remoteSocketId, offer });
+      setStream(stream);
+    },
+    [remoteSocketId, socket]
+  );
 
-      stream.getTracks().forEach(track => {
-        peerConnection.current.addTrack(track, stream);
+  const handleIncomingCall = useCallback(
+    async ({ from, offer }) => {
+      setRemoteSocketId(from);
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true,
       });
+      setStream(stream);
+      console.log("Incoming call", offer);
+      const ans = await Peer.getAnswer(offer);
+      socket.emit("call:accepted", { to: from, ans });
+    },
+    [socket]
+  );
 
-      peerConnection.current.ontrack = (event) => {
-        remoteVideoRef.current.srcObject = event.streams[0];
-        setRemoteStream(event.streams[0]);
-      };
-
-      peerConnection.current.onicecandidate = (event) => {
-        if (event.candidate) {
-          socket.emit("signal", event.candidate);
-        }
-      };
-
-      const offer = await peerConnection.current.createOffer();
-      await peerConnection.current.setLocalDescription(offer);
-      socket.emit("signal", offer);
-
-      setIsJoined(true);
-    } catch (err) {
-      setError("Unable to access camera and microphone: " + err.message);
+  const sendStreams = useCallback(() => {
+    for (const track of stream.getTracks()) {
+      console.log(track);
+      Peer.peer.addTrack(track, stream);
     }
-  }, [videoCallLink, currentUser, doctorUid, userUid, socket]);
+  }, [stream]);
 
-  const handleLeaveRoom = useCallback(() => {
-    if (localStream) {
-      localStream.getTracks().forEach(track => track.stop());
-    }
-    if (localVideoRef.current) {
-      localVideoRef.current.srcObject = null;
-    }
-    if (remoteVideoRef.current) {
-      remoteVideoRef.current.srcObject = null;
+  const handleCallAccepted = useCallback(
+    ({ from, ans }) => {
+      Peer.setLocalDescription(ans);
+      console.log("Call Accepted!");
+      sendStreams();
+    },
+    [sendStreams]
+  );
+
+  const handleEndCall = () => {
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+      setStream(null);
     }
 
-    socket.emit("leave", { room: videoCallLink });
-    closeConnection();
-    setIsJoined(false);
-  }, [localStream, socket, videoCallLink]);
-
-  const closeConnection = () => {
-    if (peerConnection.current) {
-      peerConnection.current.close();
-      peerConnection.current = null;
+    if (remoteStream) {
+      remoteStream.getTracks().forEach(track => track.stop());
+      setRemoteStream(null);
     }
+
+    socket.emit("room:leave", {
+      uid: currentUser.uid,
+      room: room
+    });
+
+    Peer.peer.close();
+    Peer.peer = null;
   };
 
+  const handleNegoNeeded = useCallback(
+    async () => {
+      const offer = await Peer.getOffer();
+      socket.emit("peer:nego:needed", { offer, to: remoteSocketId });
+    },
+    [remoteSocketId, socket]
+  );
+
+  const handleNegoNeedIncoming = useCallback(
+    async ({ from, offer }) => {
+      const ans = await Peer.getAnswer(offer);
+      socket.emit("peer:nego:done", { to: from, ans });
+    },
+    [socket]
+  );
+
+  const handleNegoNeedFinal = useCallback(
+    async ({ ans }) => {
+      await Peer.setLocalDescription(ans);
+    },
+    []
+  );
+
+  useEffect(() => {
+    if (currentUser && room) {
+      socket.emit("room:join", {
+        uid: currentUser.uid,
+        roomId: room
+      });
+    }
+  }, [currentUser, room, socket]);
+
+  useEffect(() => {
+    socket.on("user:joined", handleUserJoined);
+    socket.on("incoming:call", handleIncomingCall);
+    socket.on("call:accepted", handleCallAccepted);
+    socket.on("peer:nego:needed", handleNegoNeedIncoming);
+    socket.on("peer:nego:final", handleNegoNeedFinal);
+
+    return () => {
+      socket.off("user:joined", handleUserJoined);
+      socket.off("incoming:call", handleIncomingCall);
+      socket.off("call:accepted", handleCallAccepted);
+      socket.off("peer:nego:needed", handleNegoNeedIncoming);
+      socket.off("peer:nego:final", handleNegoNeedFinal);
+    };
+  }, [socket, handleUserJoined, handleIncomingCall, handleCallAccepted, handleNegoNeedIncoming, handleNegoNeedFinal]);
+
+  useEffect(() => {
+    Peer.peer.addEventListener('negotiationneeded', handleNegoNeeded);
+    return () => {
+      Peer.peer.removeEventListener('negotiationneeded', handleNegoNeeded);
+    };
+  }, [handleNegoNeeded]);
+
+  useEffect(() => {
+    Peer.peer.addEventListener("track", ev => {
+      const remoteStream = ev.streams;
+      setRemoteStream(remoteStream[0]);
+    });
+  }, []);
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white p-4 mt-24">
-      {error && <p className="text-red-600">{error}</p>}
-      {!isJoined ? (
-        <button onClick={handleJoinRoom} className="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition duration-200">
-          Join Call
+    <div className="bg-gradient-to-r from-violet-500 via-violet-200 to-violet-400 h-screen">
+      <div className="flex h-[80%] pt-32 px-4">
+        <ReactPlayer
+          playing
+          url={stream}
+          width="100%"
+          height="90%"
+          style={{
+            borderRadius: "0.5rem",
+            overflow: "hidden",
+            border: "1px solid #9B59B6",
+            boxShadow: "0 10px 15px rgba(155, 89, 182, 0.3)",
+            width: "100%",
+          }}
+        />
+        <ReactPlayer
+          playing
+          url={remoteStream}
+          width="100%"
+          height="90%"
+          style={{
+            borderRadius: "0.5rem",
+            overflow: "hidden",
+            border: "1px solid #9B59B6",
+            boxShadow: "0 10px 15px rgba(155, 89, 182, 0.3)",
+            width: "100%",
+          }}
+        />
+      </div>
+      <h4>{remoteSocketId?remoteSocketId: "No one in room"}</h4>
+
+      {!stream && (
+        <button
+          className="p-4 mt-2 bg-gradient-to-r from-violet-900 to-violet-200 w-full text-white rounded-xl"
+          onClick={handleCall}
+        >
+          Make Call
         </button>
-      ) : (
-        <div className="w-full flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8">
-          <div className="flex-1 bg-gray-200 rounded-lg overflow-hidden h-72 md:h-96">
-            <video ref={localVideoRef} autoPlay muted className="w-full h-full object-cover"></video>
-          </div>
-          <div className="flex-1 bg-gray-200 rounded-lg overflow-hidden h-72 md:h-96">
-            <video ref={remoteVideoRef} autoPlay className="w-full h-full object-cover"></video>
-          </div>
-        </div>
       )}
-      {isJoined && (
-        <button onClick={handleLeaveRoom} className="px-4 py-2 bg-violet-600 text-white rounded-md hover:bg-violet-700 transition duration-200 mt-4">
-          End Call
+      {
+        remoteSocketId && 
+        <button
+          className="p-4 mt-2 bg-gradient-to-r from-violet-900 to-violet-200 w-full text-white rounded-xl"
+          onClick={handleCallAccepted}
+        >
+          Accept Call
+        </button>
+      }
+      {stream && (
+        <button
+          onClick={sendStreams}
+          className="p-4 mt-2 bg-gradient-to-r from-violet-900 to-violet-200 w-full text-white rounded-xl"
+        >
+          Send Stream
         </button>
       )}
+      <button
+        className="p-4 mt-2 bg-gradient-to-r from-violet-900 to-violet-200 w-full text-white rounded-xl"
+        onClick={handleEndCall}
+      >
+        End Call
+      </button>
     </div>
   );
 }

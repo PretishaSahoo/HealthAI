@@ -17,6 +17,7 @@ import DoctorsList from './Components/DoctorsList';
 import Appointments from './Components/Appointments';
 import Error from './Components/Error';
 import VC from './Components/VideoCall.js';
+import Lobby from './Components/Lobby.js';
 
 const App = () => {
   const { currentUser } = useAuth();
@@ -25,7 +26,8 @@ const App = () => {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/vdo" element={<VC />} />
+        <Route path="/vdo/:room" element={<Lobby />} />
+        <Route path="/vdo/:room/room" element={<VC />} />
         <Route path="/error" element={<Error />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

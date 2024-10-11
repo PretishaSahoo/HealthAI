@@ -147,8 +147,9 @@ export default function Appointments() {
   };
 
   const handleJoinCall = (appointment) => {
-    const queryString = new URLSearchParams(appointment).toString();
-    window.open(`${baseURL}/vdo?${queryString}`, '_blank');
+    console.log(appointment)
+    const room = appointment.videoCallLink
+    window.open(`${baseURL}/vdo/${room}`, '_blank');
   };
 
   const renderAppointments = (appointments, title, showButtons = true) => (
