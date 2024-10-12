@@ -48,8 +48,6 @@ export default function Lobby() {
         <div className="bg-gradient-to-r from-violet-500 via-violet-200 to-violet-400 h-screen w-full pt-24">
 
             <form className="flex flex-col items-center w-[90%] sm:w-[40%] mx-auto p-6 m-6 mt-32 border border-violet-50 rounded-xl">
-                <label htmlFor="email" className="sr-only">UID</label>
-                <input value={currentUser.uid} className="rounded-xl mb-2 p-4 bg-violet-100 w-full text-center" type="text" readOnly />
                 <label htmlFor="room" className="sr-only">Room Code</label>
                 <input value={room} type="text" className="rounded-xl mb-2 p-4 w-full bg-violet-100 text-center" placeholder="Enter room code" readOnly />
                 <button onClick={handleSubmit} className="p-4 mt-2 bg-gradient-to-r from-violet-900 to-violet-200 w-full text-white rounded-xl">Join</button>

@@ -5,8 +5,6 @@ import Peer from "../Services/Peer"
 import { useSocket } from '../Context/SocketProvider'
 import { useParams } from 'react-router-dom';
 
-const baseURL = process.env.REACT_APP_MODE === "production" ? "https://health-ai-backend.vercel.app" : "http://localhost:5000";
-
 export default function VideoCall() {
 
   const { currentUser } = useAuth();
@@ -203,20 +201,12 @@ export default function VideoCall() {
           Accept Call
         </button>
       }
-      {stream && (
-        <button
-          onClick={sendStreams}
-          className="p-4 mt-2 bg-gradient-to-r from-violet-900 to-violet-200 w-full text-white rounded-xl"
-        >
-          Send Stream
-        </button>
-      )}
-      <button
+      {stream && <button
         className="p-4 mt-2 bg-gradient-to-r from-violet-900 to-violet-200 w-full text-white rounded-xl"
         onClick={handleEndCall}
       >
         End Call
-      </button>
+      </button>}
     </div>
   );
 }
