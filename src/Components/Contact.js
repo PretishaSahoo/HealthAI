@@ -6,7 +6,7 @@ export default function Contact() {
     <div className="max-w-[1200px] mx-auto bg-white sm:py-20 p-5 animate-floatdown">
 
       <div className="text-center">
-      <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-purple-700 mt-24 sm:mt-24 md:mt-24">
+      <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight bg-gradient-to-r from-pink-500 via-purple-500 to-violet-700 bg-clip-text text-transparent  mt-24 sm:mt-24 md:mt-24">
         Contact and Support
         </h2>
 
@@ -38,7 +38,7 @@ export default function Contact() {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <button className="text-xl w-full p-2 mt-2 font-semibold text-white bg-purple-600 rounded-md hover:bg-purple-700">Send</button>
+                  <button className="rounded-lg bg-gradient-to-tr from-pink-300 via-purple-400 to-violet-700 p-3 m-2 text-white text-sm md:text-base font-semibold transition hover:from-violet-700 hover:to-pink-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 w-full">Send</button>
                 </div>
 
               </div>

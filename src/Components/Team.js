@@ -29,7 +29,7 @@ const Team = () => {
   return (
     <div className="py-10 bg-gray-100 min-h-screen pb-24 animate-float">
       <div className="text-center mb-12 pt-24">
-        <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-purple-700 mt-24 sm:mt-24 md:mt-24">Meet Our Team</h1>
+        <h1 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight  bg-gradient-to-r from-pink-500 via-purple-500 to-violet-700 bg-clip-text text-transparent mt-24 sm:mt-24 md:mt-24">Meet Our Team</h1>
         <p className="mt-2 text-lg text-gray-700">A group of dedicated professionals driving innovation.</p>
       </div>
       <div className="flex flex-wrap justify-center gap-10 ">
@@ -49,7 +49,7 @@ const Team = () => {
               />
             </div>
             <div className="p-4 text-center">
-              <h2 className="text-2xl font-semibold text-purple-700">{member.name}</h2>
+              <h2 className="text-2xl font-bold leading-tight bg-gradient-to-r from-pink-500 via-purple-500 to-violet-700 bg-clip-text text-transparent">{member.name}</h2>
               <p className="text-gray-600 mt-1">{member.role}</p>
             </div>
           </a>
