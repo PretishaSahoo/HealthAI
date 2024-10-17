@@ -95,11 +95,11 @@ const EditDoctor = () => {
   return (
     <div className="animate-floatdown">
       <div className="text-center">
-        <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-purple-700 mt-24 sm:mt-24 md:mt-24">
+        <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight bg-gradient-to-r from-pink-500 via-purple-500 to-violet-700 bg-clip-text text-transparent mt-24 sm:mt-24 md:mt-24">
           Edit Profile
         </h2>
       </div>
-      <div className="max-w-[1200px] h-[90%] mx-auto items-center justify-center mt-6 bg-white p-12 rounded shadow-lg">
+      <div className="max-w-[1200px] h-[90%] mx-auto items-center justify-center mt-6 bg-white p-12 rounded-xl shadow-lg bg-gradient-to-t from-violet-50 via-white to-violet-50">
         <form className="w-full" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="flex flex-col">
@@ -187,7 +187,7 @@ const EditDoctor = () => {
                 />
                 <label
                   htmlFor="profilePic"
-                  className="cursor-pointer px-4 py-2 bg-violet-700 text-white rounded shadow hover:bg-violet-600"
+                  className=" text-center rounded-lg bg-gradient-to-tr from-pink-300 via-purple-400 to-violet-700 p-3 m-2 text-white text-sm md:text-base font-semibold transition hover:from-violet-700 hover:to-pink-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
                 >
                   {file.filename ? file.filename : 'Choose File'}
                 </label>
@@ -215,7 +215,7 @@ const EditDoctor = () => {
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-violet-700 text-white rounded shadow hover:bg-violet-600"
+              className=" text-center rounded-lg bg-gradient-to-tr from-pink-300 via-purple-400 to-violet-700 p-3 m-2 text-white text-sm md:text-base font-semibold transition hover:from-violet-700 hover:to-pink-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
             >
               {loading?"Saving..." : "Save Changes"}
             </button>

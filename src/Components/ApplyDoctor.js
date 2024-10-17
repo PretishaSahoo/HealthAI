@@ -104,11 +104,11 @@ const ApplyDoctor = () => {
   return (
     <div className="animate-floatdown">
       <div className="text-center ">
-        <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight text-purple-700 mt-24 sm:mt-24 md:mt-24">
+        <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold  leading-tight bg-gradient-to-r from-pink-500 via-purple-500 to-violet-700 bg-clip-text text-transparent  mt-24 sm:mt-24 md:mt-24">
           Apply as a Doctor
         </h2>
       </div>
-      <div className="max-w-[1200px] h-[90%] mx-auto items-center justify-center mt-6 bg-white p-12 rounded shadow-lg">
+      <div className="max-w-[1200px] h-[90%] mx-auto items-center justify-center mt-6  bg-gradient-to-t from-violet-50 via-white to-violet-50 p-12 rounded-xl shadow-lg">
         <form className="w-full" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="flex flex-col">
@@ -230,7 +230,7 @@ const ApplyDoctor = () => {
             </div>
           </div>
           <div className="sm:col-span-2">
-            <button  disabled={loading} type="submit" className="text-xl w-full p-2 mt-2 font-semibold text-white bg-purple-600 rounded-md hover:bg-purple-700">
+            <button  disabled={loading} type="submit" className="text-xl w-full text-center rounded-lg bg-gradient-to-tr from-pink-300 via-purple-400 to-violet-700 p-3 m-2 text-white md:text-base font-semibold transition hover:from-violet-700 hover:to-pink-300 shadow-md hover:shadow-lg ">
               {loading?"Applying..." : "Submit Application"}
             </button>
           </div>

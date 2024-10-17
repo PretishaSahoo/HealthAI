@@ -18,7 +18,7 @@ const specialties = [
   { title: 'Psychiatry', image: psychiatry },
   { title: 'Oncology', image: oncology },
   { title: 'Orthopedics', image: orthopedics },
-  { title: 'General Surgery', image: generalsurgery },
+  { title: 'GeneralSurgery', image: generalsurgery },
   { title: 'Gynecology', image: gynecology },
 ];
 

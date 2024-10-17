@@ -33,7 +33,7 @@ export default function Dashboard() {
   }, [currentUser, initialRedirect, navigate]);
 
   return (
-    <div className="flex">
+    <div className="flex bg-gradient-to-t from-gray-50 to-violet-100">
       {/* Sidebar */}
       <Sidebar
         isSidebarOpen={isSidebarOpen}
@@ -53,7 +53,7 @@ export default function Dashboard() {
       {!isLargeScreen && (
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="fixed top-4 left-4 z-20 p-2 bg-purple-900 text-white rounded-full shadow-md"
+          className="fixed top-12 left-4 z-20 p-2 bg-purple-900 text-white rounded-full shadow-md"
         >
           {isSidebarOpen ? (
             <svg
