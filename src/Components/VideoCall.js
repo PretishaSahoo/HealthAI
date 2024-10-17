@@ -153,7 +153,7 @@ export default function VideoCall() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r from-violet-500 via-violet-200 to-violet-400 h-screen">
+    <div className="bg-gradient-to-r from-violet-300 via-white to-violet-300 h-screen">
       <div className="flex h-[80%] pt-32 px-4">
         <ReactPlayer
           playing
@@ -186,7 +186,7 @@ export default function VideoCall() {
 
       {!stream && (
         <button
-          className="p-4 mt-2 bg-gradient-to-r from-violet-900 to-violet-200 w-full text-white rounded-xl"
+          className="p-4 mt-2 bg-gradient-to-tr from-pink-300 via-purple-400 to-violet-700 m-2 text-sm md:text-base font-semibold transition hover:from-violet-700 hover:to-pink-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2  w-full text-white rounded-xl"
           onClick={handleCall}
         >
           Make Call
@@ -195,14 +195,14 @@ export default function VideoCall() {
       {
         remoteSocketId && 
         <button
-          className="p-4 mt-2 bg-gradient-to-r from-violet-900 to-violet-200 w-full text-white rounded-xl"
+          className="p-4 mt-2 bg-gradient-to-tr  from-pink-300 via-purple-400 to-violet-700 m-2 text-sm md:text-base font-semibold transition hover:from-violet-700 hover:to-pink-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 w-full text-white rounded-xl"
           onClick={handleCallAccepted}
         >
           Accept Call
         </button>
       }
       {stream && <button
-        className="p-4 mt-2 bg-gradient-to-r from-violet-900 to-violet-200 w-full text-white rounded-xl"
+        className="p-4 mt-2 bg-gradient-to-tr from-pink-300 via-purple-400 to-violet-700 m-2 text-sm md:text-base font-semibold transition hover:from-violet-700 hover:to-pink-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 w-full text-white rounded-xl"
         onClick={handleEndCall}
       >
         End Call
