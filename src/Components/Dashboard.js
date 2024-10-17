@@ -6,7 +6,7 @@ import { useAuth } from '../Context/AuthContext';
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
-  const [initialRedirect, setInitialRedirect] = useState(true); // Flag for initial redirect
+  const [initialRedirect, setInitialRedirect] = useState(true); 
 
   const navigate = useNavigate();
   const { currentUser } = useAuth();
@@ -28,7 +28,7 @@ export default function Dashboard() {
       } else {
         navigate("/dashboard/doctors");
       }
-      setInitialRedirect(false); // Ensure redirection happens only once
+      setInitialRedirect(false); 
     }
   }, [currentUser, initialRedirect, navigate]);
 
@@ -47,11 +47,9 @@ export default function Dashboard() {
           isSidebarOpen || isLargeScreen ? 'lg:ml-[25%]' : 'ml-0'
         }`}
       >
-        {/* Render nested routes */}
         <Outlet />
       </div>
 
-      {/* Toggle Button for Small Screens */}
       {!isLargeScreen && (
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
